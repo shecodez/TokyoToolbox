@@ -8,6 +8,7 @@ onMounted(() => {
 
 useHead({
   title: config.public.appName,
+  meta: [{ name: 'p:domain_verify', content: '6ad70d8e7ecb0a518d089fb53a18d7f7' }],
 });
 </script>
 
