@@ -4,14 +4,14 @@ const config = useRuntimeConfig();
 
 <template>
   <div class="grid h-screen place-content-center gap-3 relative">
-    <img class="fixed inset-0 min-h-screen" src="~/assets/images/tokyo-4807294_1920.jpg" alt="Tokyo" />
-    <div class="z-10 flex gap-12 items-center bg-white bg-opacity-80 p-12">
+    <!-- <img class="fixed inset-0 min-h-screen" src="~/assets/images/tokyo-4807294_1920.jpg" alt="Tokyo" /> -->
+    <div class="z-10 flex gap-12 items-center px-[5%] lg:px-[15%]">
       <h1 class="text-5xl">
         Welcome to <span class="font-black">{{ config.public.appName }}</span>
       </h1>
       <p class="text-xl">
         A place for hosting and posting DIY interior / exterior design tutorials, workshops, documentaries, interviews,
-        guest speakers, podcasts, and exploration. A space for community, global communication, and all things Japan.
+        reviews, podcasts, and exploration. A space for community, global communication, and all things Japan.
       </p>
     </div>
   </div>

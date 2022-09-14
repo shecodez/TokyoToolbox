@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css?family=Marcellus+SC");
+@import url("https://fonts.googleapis.com/css?family=Oswald:400,300,700");
+
+/* Page Transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: scale(0.99);
+}
+
+html.dark {
+  @apply bg-gray-800 text-gray-50;
+}
+
+/* */
+.rainbow-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-cyan-400;
+}
+
+.rainbow-bg {
+  @apply bg-gradient-to-r from-teal-600 to-cyan-400;
+}
+
+/* Headings */
+.h1 {
+  @apply text-5xl font-bold;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.heading-font {
+  font-family: "Marcellus SC", Georgia, serif;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Oswald", sans-serif;
+}
+
+/* strike-through animation links */
+.slice-anim a,
+.slice-anim button {
+  white-space: nowrap;
+  font-family: "Marcellus SC", Georgia, serif;
+  transition: 0.5s;
+  position: relative;
+  color: transparent;
+}
+.slice-anim a:before,
+.slice-anim a:after,
+.slice-anim button:before,
+.slice-anim button:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: 0.5s;
+  transition-delay: 0.25s;
+}
+.slice-anim a:before,
+.slice-anim button:before {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+.slice-anim a:after,
+.slice-anim button:after {
+  -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+.slice-anim a:hover,
+.slice-anim button:hover {
+  text-decoration: none;
+}
+.slice-anim a:hover:before,
+.slice-anim button:hover:before {
+  transform: translateX(2px);
+}
+.slice-anim a:hover:after,
+.slice-anim button:hover:after {
+  opacity: 1 !important;
+  transform: translateX(-2px);
+}
+
+ul.menu li {
+  @apply flex relative overflow-hidden;
+}
+ul.menu li:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 1px;
+  left: -100%;
+  transition: 0.5s;
+  @apply bg-green-400;
+}
+ul.menu li:hover:before {
+  left: 100%;
+}
+ul.menu li a:before,
+ul.menu li a:after,
+ul.menu li button:before,
+ul.menu li button:after,
+ul.menu li span:before,
+ul.menu li span:after {
+  padding: inherit;
+  @apply text-gray-800 dark:text-white;
+}
+ul.menu-actions li > a,
+ul.menu-actions li > button {
+  color: inherit;
+}
+ul.menu li a.router-link-active:before,
+ul.menu li a.router-link-active:after {
+  @apply text-green-400;
+}
+ul.menu-icon li a.router-link-active > svg {
+  @apply text-green-400;
+}
+
+.dropdown span:after {
+  content: "";
+  position: absolute;
+  display: block;
+  bottom: 0;
+  right: 50%;
+  width: 3px;
+  height: 3px;
+  margin-left: -1px;
+  border-radius: 1.5px;
+  box-shadow: 5px 0 0 0, -5px 0 0 0, inset 0 0 0 3px;
+  opacity: 0.4;
+  transition: 0.2s opacity;
+}

@@ -1,5 +1,5 @@
 <template>
   <div class="flex flex-col items-center">
-    <h1 class="h1 mt-20">Contact</h1>
+    <h1 class="h1 mt-20">Support</h1>
   </div>
 </template>

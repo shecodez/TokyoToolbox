@@ -1,32 +1,97 @@
 <script setup lang="ts">
-const config = useRuntimeConfig();
+import { Icon } from '@iconify/vue';
+import ToggleTheme from '../components/ToggleTheme.vue';
+
+const topLinks = [
+  { label: 'English', dropdown: true },
+  { link: 'https://discord.com/channels/1019237149171789864/1019237149171789868', label: 'Community' },
+  { link: '/support', label: 'Support' },
+];
+const socialIcons = [
+  {
+    icon: 'bi:discord',
+    label: 'Discord',
+    link: 'https://discord.com/channels/1019237149171789864/1019237149171789868',
+  },
+  { icon: 'bi:instagram', label: 'Instagram', link: 'https://www.instagram.com/TokyoToolbox/' },
+  { icon: 'bi:twitter', label: 'Twitter', link: 'https://twitter.com/TokyoToolbox' },
+  { icon: 'bi:youtube', label: 'YouTube', link: 'https://www.youtube.com/channel/UCzV2BYxwNJlgc67Szapji0g' },
+];
+
+const navLinks = [
+  { link: '/about', label: 'About' },
+  { link: '/events', label: 'Events', dropdown: true },
+  { link: '/blog', label: 'Blog' },
+  { link: '/shop', label: 'Shop', dropdown: true },
+  { link: '/contact', label: 'Contact' },
+];
+const navIcons = [
+  { icon: 'bi:search', label: 'Search' },
+  { icon: 'bi:bell-fill', label: 'Notifications' },
+  { icon: 'bi:sun-fill', label: 'Toggle Dark Mode' }, //component: ToggleTheme,
+  { link: '/auth/login', icon: 'bi:lock', label: 'Login' },
+];
 </script>
 
 <template>
-  <header class="site-header">
-    <div class="wrapper">
-      <NuxtLink to="/" class="no-underline">
-        <figure class="site-logo">
-          <h1>{{ config.public.appName }}</h1>
-        </figure>
-      </NuxtLink>
+  <header>
+    <div class="site-top-header slice-anim flex items-center justify-between h-10 px-[5%] lg:px-[15%]">
+      <ul class="menu flex items-center">
+        <button class="nav-icon-btn">
+          <Icon icon="bi:translate" />
+        </button>
+        <li v-for="(n, i) in topLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
+          <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-3 !text-sm">
+            {{ n.label }}<span></span>
+          </button>
+          <NuxtLink v-else :to="n.link" class="nav-link px-3 !text-sm" :data-text="n.label">
+            {{ n.label }}
+          </NuxtLink>
+        </li>
+      </ul>
+      <ul class="menu-social flex items-center">
+        <li v-for="(n, i) in socialIcons" :key="`nav-btn-${i}`">
+          <a :href="n.link" target="_blank" class="nav-icon-btn px-2.5">
+            <Icon :icon="n.icon" />
+            <span class="sr-only">{{ n.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-      <nav class="site-nav">
-        <ul class="links flex gap-4">
-          <li class="link"><NuxtLink to="/about">About</NuxtLink></li>
-          <li class="link"><NuxtLink to="/events">Events</NuxtLink></li>
-          <li class="link"><NuxtLink to="/blog">Blog</NuxtLink></li>
-          <li class="link"><NuxtLink to="/shop">Shop</NuxtLink></li>
-          <li class="link"><NuxtLink to="/contact">Contact</NuxtLink></li>
-          <li><div>|</div></li>
-          <!-- <li class="link"><button>S<span class="sr-only">Search</span></button></li> -->
-          <li class="link">
-            <ToggleTheme />
+    <div class="site-main-header flex items-center justify-between h-20 px-[5%] lg:px-[15%]">
+      <div class="flex gap-2.5 items-center">
+        <Icon class="hidden lg:inline-block text-sm" icon="bi:tools" />
+        <button class="inline-block lg:hidden text-sm">
+          <Icon icon="fa:bars" />
+          <span class="sr-only">Menu</span>
+        </button>
+        <NuxtLink to="/" class="site-logo">Tokyo<span class="heading-font">Toolbox</span></NuxtLink>
+      </div>
+
+      <nav class="flex items-center slice-anim">
+        <ul class="menu flex items-center">
+          <li v-for="(n, i) in navLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
+            <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-5">
+              {{ n.label }}<span></span>
+            </button>
+            <NuxtLink v-else :to="n.link" class="nav-link px-5" :class="n.dropdown && 'dropdown'" :data-text="n.label">
+              {{ n.label }}
+              <span v-if="n.dropdown"></span>
+            </NuxtLink>
           </li>
-          <li class="link">
-            <NuxtLink to="/auth/login">Login</NuxtLink>
+        </ul>
+        <ul class="menu-icon flex items-center">
+          <li v-for="(n, i) in navIcons" :key="`nav-btn-${i}`">
+            <NuxtLink v-if="!!n.link" :to="n.link" class="nav-link px-2">
+              <Icon :icon="n.icon" />
+            </NuxtLink>
+            <button v-else class="nav-icon-btn px-2.5">
+              <!-- <div v-if="!!n.component">?</div> -->
+              <Icon :icon="n.icon" />
+            </button>
+            <span class="sr-only">{{ n.label }}</span>
           </li>
-          <!-- <li class="link"><button>T<span class="sr-only">Translate</span></button></li> -->
         </ul>
       </nav>
     </div>
@@ -34,17 +99,24 @@ const config = useRuntimeConfig();
 </template>
 
 <style scoped>
-.site-header {
-  @apply sticky top-0 w-full p-4 bg-slate-100 bg-opacity-40 border-b-2 border-white border-opacity-30 backdrop-blur-lg z-20;
-}
-.site-header > .wrapper {
-  @apply flex items-center justify-between max-w-6xl m-auto;
-}
-.site-logo {
-  @apply font-black text-lg;
+.site-top-header {
+  @apply bg-gray-300 dark:bg-black;
 }
 
-.link {
-  @apply text-lg font-semibold;
+.site-main-header {
+  @apply bg-white dark:bg-black !bg-opacity-40 shadow-lg backdrop-blur-lg !sticky top-0 z-20;
+}
+
+.site-logo {
+  @apply font-black text-lg lg:text-2xl;
+}
+
+.nav-link,
+.nav-link-btn {
+  @apply flex font-semibold text-lg relative !text-black !dark:text-white py-0.5 !hover:text-green-400;
+}
+
+.nav-icon-btn {
+  @apply flex text-sm relative !text-black !dark:text-white !hover:text-green-400;
 }
 </style>

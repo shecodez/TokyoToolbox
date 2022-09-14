@@ -4,12 +4,28 @@ import { defineNuxtConfig } from 'nuxt';
 export default defineNuxtConfig({
   modules: ['@nuxt/content', 'nuxt-windicss'],
 
+  content: {
+    // https://content.nuxtjs.org/api/configuration
+    highlight: {
+      theme: 'dracula-soft',
+    },
+    markdown: {
+      toc: {
+        depth: 5,
+        searchDepth: 5,
+      },
+    },
+  },
+
+  // https://v3.nuxtjs.org/migration/runtime-config#runtime-config
   runtimeConfig: {
     // Private config that is only available on the server
     apiSecret: '123',
     // Config within public will be also exposed to the client
     public: {
       appName: 'Tokyo Toolbox',
+      appDescription:
+        'Japan-centric DIY interior / exterior design tutorials, workshops, documentaries, interviews, reviews, podcasts, and exploration.',
     },
   },
 });

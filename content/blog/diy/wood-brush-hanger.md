@@ -1,0 +1,17 @@
+---
+published: true
+date: 2022-09-14T21:12:31.593Z
+update: null
+author: Niico "eco" Savvy
+title: "Wood Brush Hanger"
+description: A simple and modern wooden brush hanger that can hang up to 12 brushes.
+cover_image: 'uploads/blog/wood-brush-hanger/cover.jpg'
+tags:
+  - diy
+  - woodworking
+  - buy-or-diy
+  - wood
+  - natural-material
+---
+
+Rather buy than DIY: https://www.inkston.com/shop/accessories/brush-hanger/oak-brush-hanger/

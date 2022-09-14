@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import './assets/css/main.css';
+
 const config = useRuntimeConfig();
 
 onMounted(() => {
@@ -13,17 +15,14 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col relative">
+  <div class="min-h-screen flex flex-col">
     <Header />
-    <div class="flex-1">
+    <main class="flex-1">
       <NuxtPage />
-    </div>
+    </main>
     <Footer />
+    <SocialLinksMenu />
   </div>
 </template>
 
-<style>
-.h1 {
-  @apply text-5xl font-bold;
-}
-</style>
+<style></style>
