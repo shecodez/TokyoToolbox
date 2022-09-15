@@ -4,10 +4,12 @@ import { defineNuxtConfig } from 'nuxt';
 export default defineNuxtConfig({
   modules: ['@nuxt/content', 'nuxt-windicss'],
 
+  css: ['~/assets/css/main.css'],
+
   content: {
     // https://content.nuxtjs.org/api/configuration
     highlight: {
-      theme: 'dracula-soft',
+      theme: 'github-dark',
     },
     markdown: {
       toc: {
@@ -26,6 +28,7 @@ export default defineNuxtConfig({
       appName: 'Tokyo Toolbox',
       appDescription:
         'Japan-centric DIY interior / exterior design tutorials, workshops, documentaries, interviews, reviews, podcasts, and exploration.',
+      siteUrl: 'tokyotoolbox.com',
     },
   },
 });

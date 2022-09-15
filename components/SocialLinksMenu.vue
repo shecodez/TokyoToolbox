@@ -16,7 +16,7 @@ const socialIcons = [
 <template>
   <ul class="social-icons-menu invisible lg:visible">
     <li v-for="(n, i) in socialIcons" :key="`social-btn-${i}`">
-      <a :href="n.link" target="_blank" class="social-icon-btn px-2.5">
+      <a :href="n.link" target="_blank" class="social-icon-link h-7">
         <Icon :icon="n.icon" />
         <span class="social-label">{{ n.label }}</span>
       </a>
@@ -26,18 +26,28 @@ const socialIcons = [
 
 <style scoped>
 .social-icons-menu {
-  @apply fixed flex flex-col justify-center inset-y-0 left-8 gap-6 z-60;
+  @apply fixed flex flex-col justify-center inset-y-0 left-6 gap-8 z-50;
 }
-.social-icon-btn {
-  @apply flex items-center gap-8 text-xl;
+.social-icon-link {
+  @apply flex items-center gap-6 text-xl;
+}
+.social-icon-link svg {
+  opacity: 0.7;
+}
+.social-icons-menu > li:hover > a.social-icon-link svg {
+  opacity: 1;
 }
 span.social-label {
   opacity: 0;
   visibility: hidden;
-  transition: 0.2s opacity, 0.2s visibility, 0.2s transform;
+  left: 50px;
+  position: absolute;
+  white-space: nowrap;
   transform: translateX(-10px);
+  transition: 0.2s opacity, 0.2s visibility, 0.2s transform;
 }
-a:hover span.social-label {
+
+.social-icons-menu > li:hover span.social-label {
   opacity: 1 !important;
   visibility: visible;
   transform: translateX(10px);

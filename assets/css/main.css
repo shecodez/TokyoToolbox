@@ -13,11 +13,15 @@
   transform: scale(0.99);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html.dark {
   @apply bg-gray-800 text-gray-50;
 }
 
-/* */
+/* rainbow stuff */
 .rainbow-text {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-cyan-400;
 }
@@ -28,7 +32,7 @@ html.dark {
 
 /* Headings */
 .h1 {
-  @apply text-5xl font-bold;
+  @apply text-5xl;
 }
 
 h1,
@@ -38,6 +42,7 @@ h4,
 h5,
 .heading-font {
   font-family: "Marcellus SC", Georgia, serif;
+  font-weight: bold;
 }
 
 html,

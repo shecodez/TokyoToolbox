@@ -21,11 +21,7 @@ const quickLinks = [
   { link: '/shop', label: 'Shop' },
   { link: '/contact', label: 'Contact' },
 ];
-const posts = [
-  { link: '', title: 'Zen bathroom must haves', cover_image: 'https://picsum.photos/48/48' },
-  { link: '', title: 'DIY worm compost bin', cover_image: 'https://picsum.photos/48/48' },
-  { link: '', title: 'Wowstick mini sd', cover_image: 'https://picsum.photos/48/48' },
-];
+
 const usefulLinks = [
   { link: '', label: 'Sitemap' },
   { link: '', label: 'FAQ' },
@@ -34,84 +30,98 @@ const usefulLinks = [
 </script>
 
 <template>
-  <footer class="site-footer px-[5%] lg:px-[15%]">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-4">
-      <div class="flex flex-col">
-        <div class="text-green-400 text-2xl mb-4">Tokyo<span class="heading-font">Toolbox</span></div>
-        <p class="text-sm mb-2 font-light">{{ config.appDescription }}</p>
-        <NuxtLink to="/about#team">Team</NuxtLink>
-        <NuxtLink to="/about#Corporate">Corporate Profile</NuxtLink>
-        <!-- <NuxtLink to="/about#join">Careers</NuxtLink> -->
+  <footer class="site-footer">
+    <div class="footer-wrapper">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-4">
+        <div class="flex flex-col">
+          <div class="rainbow-text text-2xl mb-4">Tokyo<span class="heading-font">Toolbox</span></div>
+          <p class="text-sm mb-2 font-light">{{ config.appDescription }}</p>
+          <NuxtLink to="/about#team">Team</NuxtLink>
+          <NuxtLink to="/about#Corporate">Corporate Profile</NuxtLink>
+          <!-- <NuxtLink to="/about#join">Careers</NuxtLink> -->
 
-        <div class="form-control mt-4">
-          <label class="text-xs font-bold" for="subscribe">Subscribe to our newsletter</label>
-          <div class="flex items-center relative">
-            <input name="subscribe" class="p-2 bg-transparent border w-full" placeholder="your@email.com" />
-            <Icon icon="bi:arrow-right" class="absolute right-4" />
+          <div class="form-control mt-4">
+            <label class="text-xs font-simibold uppercase" for="subscribe">Join our newsletter</label>
+            <div class="flex items-center relative">
+              <input name="subscribe" class="p-2 bg-transparent border w-full pr-10" placeholder="your@email.com" />
+              <button class="absolute right-0 p-3 hover:text-teal-500">
+                <Icon icon="bi:arrow-right" />
+              </button>
+            </div>
           </div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl mb-4">Recent Posts</h2>
+          <ContentList
+            path="/blog"
+            :query="{
+              only: ['title', '_path', 'date', 'cover_image'],
+              $sensitivity: 'base',
+            }"
+          >
+            <template v-slot="{list}">
+              <ul class="flex flex-col gap-3">
+                <li v-for="(p, i) in list.slice(3)" :key="`recent-posts-${i}`" class="flex gap-4">
+                  <img :src="`/${p.cover_image}`" :alt="p.title" class="post-img h-11" />
+                  <p class="text-ellipsis overflow-hidden">
+                    <NuxtLink :to="p._path" class="truncate" :title="p.title">{{ p.title }}</NuxtLink>
+                    <div class="text-xs mt-0.5">{{p.date}}</div>
+                  </p>
+                </li>
+              </ul>
+            </template>
+          </ContentList>
+        </div>
+
+        <div>
+          <h2 class="text-2xl mb-4">Quick Links</h2>
+          <ul>
+            <li v-for="(l, i) in quickLinks" :key="`quick-link-${i}`">
+              <NuxtLink :to="l.link">{{ l.label }}</NuxtLink>
+            </li>
+          </ul>
+        </div>
+
+        <div class="relative">
+          <h2 class="text-2xl mb-4">Useful Links</h2>
+          <ul>
+            <li v-for="(l, i) in usefulLinks" :key="`useful-link-${i}`">
+              <NuxtLink :to="l.link">{{ l.label }}</NuxtLink>
+            </li>
+          </ul>
+
+          <ul class="app-banners absolute bottom-0 right-0">
+            <li class="ios_app mb-2"></li>
+            <li class="android"></li>
+          </ul>
         </div>
       </div>
 
-      <div>
-        <h2 class="text-2xl mb-4">Recent Posts</h2>
-        <ul class="flex flex-col gap-3">
-          <li v-for="(p, i) in posts" :key="`recent-posts-${i}`" class="flex gap-4">
-            <img :src="p.cover_image" :alt="p.title" class="post-img h-11" />
-            <p class="text-ellipsis overflow-hidden">
-              <NuxtLink :to="p.link" class="truncate" :title="p.title">{{ p.title }}</NuxtLink>
-              <div class="text-xs mt-0.5">2022.09.15</div>
-            </p>
+      <div class="uppercase flex items-center h-16 border-b justify-between md:px-[4%] lg:px-[8%]">
+        <h2 class="text-xl md:text-3xl">Connect&nbsp;<span class="text-teal-500 !text-sm !md:text-lg">with</span>&nbsp;Us</h2>
+        <ul class="flex gap-4 text-xl">
+          <li v-for="(s, i) in socialIcons" :key="`social-icon--footer-${i}`" :title="s.label">
+            <a :href="s.link" target="_blank"><Icon :icon="s.icon" /></a>
           </li>
         </ul>
       </div>
 
-      <div>
-        <h2 class="text-2xl mb-4">Quick Links</h2>
-        <ul>
-          <li v-for="(l, i) in quickLinks" :key="`quick-link-${i}`">
-            <NuxtLink :to="l.link">{{ l.label }}</NuxtLink>
-          </li>
-        </ul>
+      <div class="flex flex-col md:flex-row items-center justify-between my-3">
+        <p class="text-xs md:text-sm">
+          &copy; {{ new Date().getFullYear() }}
+          <span class="text-teal-500">Tokyo<span class="heading-font">Toolbox</span></span>
+          All Rights Reserved.
+        </p>
+        <div class="divide-x divide text-xs md:text-sm">
+          <a class="h5 pr-2">Privacy Policy</a>
+          <a class="h5 pl-2">Terms of Services</a>
+        </div>
       </div>
 
-      <div class="relative">
-        <h2 class="text-2xl mb-4">Useful Links</h2>
-        <ul>
-          <li v-for="(l, i) in usefulLinks" :key="`useful-link-${i}`">
-            <NuxtLink :to="l.link">{{ l.label }}</NuxtLink>
-          </li>
-        </ul>
-
-        <ul class="app-banners absolute bottom-0 right-0">
-          <li class="ios_app mb-2"></li>
-          <li class="android"></li>
-        </ul>
+      <div class="flex items-center justify-center gap-1 text-sm">
+        Made with <Icon icon="bi:heart-fill" /> by <a href="https://shecodez.com" target="_blank">shecodez</a> | NJN
       </div>
-    </div>
-
-    <div class="uppercase flex items-center h-16 border-b justify-between md:px-[4%] lg:px-[8%]">
-      <h2 class="text-xl md:text-3xl">Connect&nbsp;<span class="text-green-400 !text-sm !md:text-lg">with</span>&nbsp;Us</h2>
-      <ul class="flex gap-4 text-xl">
-        <li v-for="(s, i) in socialIcons" :key="`social-icon--footer-${i}`">
-          <a :href="s.link" target="_blank"><Icon :icon="s.icon" /></a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="flex flex-col md:flex-row items-center justify-between my-3">
-      <h5 class="text-xs md:text-sm">
-        &copy; {{ new Date().getFullYear() }}
-        <span class="text-green-400">Tokyo<span class="heading-font">Toolbox</span></span>
-        All Rights Reserved.
-      </h5>
-      <div class="divide-x divide text-xs md:text-sm">
-        <a class="h5 pr-2">Privacy Policy</a>
-        <a class="h5 pl-2">Terms of Services</a>
-      </div>
-    </div>
-
-    <div class="flex items-center justify-center gap-1 text-sm">
-      Made with <Icon icon="bi:heart-fill" /> by <a href="https://shecodez.com" target="_blank">shecodez</a> | NJN
     </div>
   </footer>
 </template>
@@ -121,9 +131,13 @@ const usefulLinks = [
   @apply bg-gray-300 dark:bg-black pt-6 pb-3;
 }
 
+.footer-wrapper {
+  @apply container mx-auto;
+}
+
 a {
   font-family: 'Marcellus SC', Georgia, serif;
-  @apply text-green-400 hover:text-green-700 cursor-pointer;
+  @apply text-teal-500 hover:text-teal-700 cursor-pointer;
 }
 
 img.post-img {

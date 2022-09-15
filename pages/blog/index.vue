@@ -1,5 +1,5 @@
 <script setup>
-import { convertDate } from '../../utils';
+//import { convertDate } from '../../utils';
 
 const { query } = useRoute();
 
@@ -11,10 +11,10 @@ useHead({
 </script>
 
 <template>
-  <main class="bg-white px-4 pt-16 pb-20 sm:px-6 lg:px-8 lg:pt-24 lg:pb-28">
+  <div class="container mx-auto pt-16 lg:pt-24 pb-20 lg:pb-28">
     <div class="mx-auto max-w-lg lg:max-w-7xl">
       <div class="border-b border-b-gray-200 pb-6">
-        <h2 class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">Recent Posts</h2>
+        <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">Recent Posts</h2>
       </div>
 
       <ContentList
@@ -33,15 +33,15 @@ useHead({
               class="flex flex-col justify-between rounded-lg border border-gray-200 p-4"
             >
               <nuxt-link :href="article._path">
-                <p class="text-xl text-gray-900">{{ article.title }}</p>
-                <p class="mt-3 text-gray-500">{{ article.description }}</p>
+                <p class="text-xl">{{ article.title }}</p>
+                <p class="mt-3">{{ article.description }}</p>
               </nuxt-link>
               <div class="mt-6">
-                <a :href="`?author=${article.author}`" class="text-sm font-medium text-gray-900">
+                <a :href="`?author=${article.author}`" class="text-sm font-medium">
                   {{ article.author }}
                 </a>
-                <div class="text-sm text-gray-500">
-                  <time datetime="2020-03-16">{{ convertDate(article.date) }}</time>
+                <div class="text-sm">
+                  <time>{{ article.date }}</time>
                 </div>
               </div>
             </li>
@@ -53,5 +53,5 @@ useHead({
         </template>
       </ContentList>
     </div>
-  </main>
+  </div>
 </template>

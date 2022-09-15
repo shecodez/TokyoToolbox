@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './assets/css/main.css';
+//import './assets/css/main.css';
 
 const config = useRuntimeConfig();
 
@@ -15,14 +15,9 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
-    <Header />
-    <main class="flex-1">
-      <NuxtPage />
-    </main>
-    <Footer />
-    <SocialLinksMenu />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <style></style>

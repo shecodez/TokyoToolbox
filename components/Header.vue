@@ -34,65 +34,69 @@ const navIcons = [
 </script>
 
 <template>
-  <div class="site-top-header slice-anim flex items-center justify-between h-10 px-[5%] lg:px-[15%]">
-    <ul class="menu flex items-center">
-      <button class="nav-icon-btn">
-        <Icon icon="bi:translate" />
-      </button>
-      <li v-for="(n, i) in topLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
-        <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-3 !text-sm">
-          {{ n.label }}<span></span>
-        </button>
-        <NuxtLink v-else :to="n.link" class="nav-link px-3 !text-sm" :data-text="n.label">
-          {{ n.label }}
-        </NuxtLink>
-      </li>
-    </ul>
-    <ul class="menu-social flex items-center">
-      <li v-for="(n, i) in socialIcons" :key="`nav-btn-${i}`">
-        <a :href="n.link" target="_blank" class="nav-icon-btn px-2.5">
-          <Icon :icon="n.icon" />
-          <span class="sr-only">{{ n.label }}</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <header class="site-main-header flex items-center justify-between h-20 px-[5%] lg:px-[15%]">
-    <div class="flex gap-2.5 items-center">
-      <Icon class="hidden lg:inline-block text-sm" icon="bi:tools" />
-      <button class="inline-block lg:hidden text-sm">
-        <Icon icon="fa:bars" />
-        <span class="sr-only">Menu</span>
-      </button>
-      <NuxtLink to="/" class="site-logo">Tokyo<span class="heading-font">Toolbox</span></NuxtLink>
-    </div>
-
-    <nav class="flex items-center slice-anim">
+  <div class="site-top-header">
+    <div class="slice-anim header-wrapper h-10">
       <ul class="menu flex items-center">
-        <li v-for="(n, i) in navLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
-          <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-5">
+        <button class="nav-icon-btn" title="translate">
+          <Icon icon="bi:translate" />
+        </button>
+        <li v-for="(n, i) in topLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
+          <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-3 !text-sm">
             {{ n.label }}<span></span>
           </button>
-          <NuxtLink v-else :to="n.link" class="nav-link px-5" :class="n.dropdown && 'dropdown'" :data-text="n.label">
+          <NuxtLink v-else :to="n.link" class="nav-link px-3 !text-sm" :data-text="n.label">
             {{ n.label }}
-            <span v-if="n.dropdown"></span>
           </NuxtLink>
         </li>
       </ul>
-      <ul class="menu-icon flex items-center">
-        <li v-for="(n, i) in navIcons" :key="`nav-btn-${i}`">
-          <NuxtLink v-if="!!n.link" :to="n.link" class="nav-link px-2">
+      <ul class="menu-social flex items-center">
+        <li v-for="(n, i) in socialIcons" :key="`nav-btn-${i}`" :title="n.label">
+          <a :href="n.link" target="_blank" class="nav-icon-btn px-2.5">
             <Icon :icon="n.icon" />
-          </NuxtLink>
-          <button v-else class="nav-icon-btn px-2.5">
-            <!-- <div v-if="!!n.component">?</div> -->
-            <Icon :icon="n.icon" />
-          </button>
-          <span class="sr-only">{{ n.label }}</span>
+            <span class="sr-only">{{ n.label }}</span>
+          </a>
         </li>
       </ul>
-    </nav>
+    </div>
+  </div>
+
+  <header class="site-main-header">
+    <div class="header-wrapper h-20">
+      <div class="flex gap-2.5 items-center">
+        <Icon class="hidden lg:inline-block text-sm" icon="bi:tools" />
+        <button class="inline-block lg:hidden text-sm" title="menu">
+          <Icon icon="fa:bars" />
+          <span class="sr-only">Menu</span>
+        </button>
+        <NuxtLink to="/" class="site-logo rainbow-text">Tokyo<span class="heading-font">Toolbox</span></NuxtLink>
+      </div>
+
+      <nav class="flex items-center slice-anim">
+        <ul class="menu flex items-center">
+          <li v-for="(n, i) in navLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
+            <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-5">
+              {{ n.label }}<span></span>
+            </button>
+            <NuxtLink v-else :to="n.link" class="nav-link px-5" :class="n.dropdown && 'dropdown'" :data-text="n.label">
+              {{ n.label }}
+              <span v-if="n.dropdown"></span>
+            </NuxtLink>
+          </li>
+        </ul>
+        <ul class="menu-icon flex items-center">
+          <li v-for="(n, i) in navIcons" :key="`nav-btn-${i}`" :title="n.label">
+            <NuxtLink v-if="!!n.link" :to="n.link" class="nav-link px-2">
+              <Icon :icon="n.icon" />
+            </NuxtLink>
+            <button v-else class="nav-icon-btn px-2.5">
+              <!-- <div v-if="!!n.component">?</div> -->
+              <Icon :icon="n.icon" />
+            </button>
+            <span class="sr-only">{{ n.label }}</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </header>
 </template>
 
@@ -106,16 +110,20 @@ const navIcons = [
   @apply bg-white dark:bg-black !bg-opacity-40 shadow-lg sticky top-0 z-20;
 }
 
+.header-wrapper {
+  @apply container mx-auto flex items-center justify-between;
+}
+
 .site-logo {
   @apply font-black text-lg lg:text-2xl;
 }
 
 .nav-link,
 .nav-link-btn {
-  @apply flex font-semibold text-lg relative !text-black !dark:text-white py-0.5 !hover:text-green-400;
+  @apply flex font-semibold text-lg relative !text-black !dark:text-white py-0.5 !hover:text-teal-400;
 }
 
 .nav-icon-btn {
-  @apply flex text-sm relative !text-black !dark:text-white !hover:text-green-400;
+  @apply flex text-sm relative !text-black !dark:text-white !hover:text-teal-400;
 }
 </style>
