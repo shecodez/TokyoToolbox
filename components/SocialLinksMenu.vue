@@ -14,7 +14,7 @@ const socialIcons = [
 </script>
 
 <template>
-  <ul class="social-icons-menu">
+  <ul class="social-icons-menu invisible lg:visible">
     <li v-for="(n, i) in socialIcons" :key="`social-btn-${i}`">
       <a :href="n.link" target="_blank" class="social-icon-btn px-2.5">
         <Icon :icon="n.icon" />

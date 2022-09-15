@@ -5,7 +5,7 @@ const config = useRuntimeConfig();
 <template>
   <div class="grid h-screen place-content-center gap-3 relative">
     <!-- <img class="fixed inset-0 min-h-screen" src="~/assets/images/tokyo-4807294_1920.jpg" alt="Tokyo" /> -->
-    <div class="z-10 flex gap-12 items-center px-[5%] lg:px-[15%]">
+    <div class="z-10 flex flex-col lg:flex-row text-center gap-8 items-center px-[5%] lg:px-[15%]">
       <h1 class="text-5xl">
         Welcome to <span class="font-black">{{ config.public.appName }}</span>
       </h1>

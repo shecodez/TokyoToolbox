@@ -35,7 +35,7 @@ const usefulLinks = [
 
 <template>
   <footer class="site-footer px-[5%] lg:px-[15%]">
-    <div class="grid grid-cols-4 gap-10 py-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-4">
       <div class="flex flex-col">
         <div class="text-green-400 text-2xl mb-4">Tokyo<span class="heading-font">Toolbox</span></div>
         <p class="text-sm mb-2 font-light">{{ config.appDescription }}</p>
@@ -89,8 +89,8 @@ const usefulLinks = [
       </div>
     </div>
 
-    <div class="uppercase flex items-center h-16 border-b justify-between px-[4%] lg:px-[8%]">
-      <h2 class="text-3xl">Connect&nbsp;<span class="text-green-400 !text-lg">with</span>&nbsp;Us</h2>
+    <div class="uppercase flex items-center h-16 border-b justify-between md:px-[4%] lg:px-[8%]">
+      <h2 class="text-xl md:text-3xl">Connect&nbsp;<span class="text-green-400 !text-sm !md:text-lg">with</span>&nbsp;Us</h2>
       <ul class="flex gap-4 text-xl">
         <li v-for="(s, i) in socialIcons" :key="`social-icon--footer-${i}`">
           <a :href="s.link" target="_blank"><Icon :icon="s.icon" /></a>
@@ -98,13 +98,13 @@ const usefulLinks = [
       </ul>
     </div>
 
-    <div class="flex items-center justify-between h-12">
-      <h5 class="text-sm">
+    <div class="flex flex-col md:flex-row items-center justify-between my-3">
+      <h5 class="text-xs md:text-sm">
         &copy; {{ new Date().getFullYear() }}
         <span class="text-green-400">Tokyo<span class="heading-font">Toolbox</span></span>
         All Rights Reserved.
       </h5>
-      <div class="divide-x divide">
+      <div class="divide-x divide text-xs md:text-sm">
         <a class="h5 pr-2">Privacy Policy</a>
         <a class="h5 pl-2">Terms of Services</a>
       </div>
