@@ -53,6 +53,7 @@ const usefulLinks = [
 
         <div>
           <h2 class="text-2xl mb-4">Recent Posts</h2>
+          <client-only>
           <ContentList
             path="/blog"
             :query="{
@@ -72,6 +73,7 @@ const usefulLinks = [
               </ul>
             </template>
           </ContentList>
+          </client-only>
         </div>
 
         <div>

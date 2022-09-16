@@ -18,16 +18,34 @@ const socialIcons = [
   { icon: 'bi:youtube', label: 'YouTube', link: 'https://www.youtube.com/channel/UCzV2BYxwNJlgc67Szapji0g' },
 ];
 
-const navLinks = [
+const navLinks = ref([
   { link: '/about', label: 'About' },
-  { link: '/events', label: 'Events', dropdown: true },
+  {
+    link: '/events',
+    label: 'Events',
+    dropdown: true,
+    isOpen: false,
+    menu: [
+      { link: '/events/all', label: 'All' },
+      { link: '/events/workshops', label: 'Workshops' },
+    ],
+  },
   { link: '/blog', label: 'Blog' },
-  { link: '/shop', label: 'Shop', dropdown: true },
+  {
+    link: '/shop',
+    label: 'Shop',
+    dropdown: true,
+    isOpen: false,
+    menu: [
+      { link: '/shop#all', label: 'All' },
+      { link: '/shop#merch', label: 'Merch' },
+    ],
+  },
   { link: '/contact', label: 'Contact' },
-];
+]);
 const navIcons = [
   { icon: 'bi:search', label: 'Search' },
-  { icon: 'bi:bell-fill', label: 'Notifications' },
+  { icon: 'bi:cart-fill', label: 'Shopping Cart' },
   { icon: 'bi:sun-fill', label: 'Toggle Dark Mode' }, //component: ToggleTheme,
   { link: '/auth/login', icon: 'bi:lock', label: 'Login' },
 ];
@@ -40,9 +58,9 @@ const navIcons = [
         <button class="nav-icon-btn" title="translate">
           <Icon icon="bi:translate" />
         </button>
-        <li v-for="(n, i) in topLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
-          <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-3 !text-sm">
-            {{ n.label }}<span></span>
+        <li v-for="(n, i) in topLinks" :key="`top-nav-link-${i}`" class="!hidden !lg:inline-block">
+          <button v-if="n.dropdown" :data-text="n.label" class="nav-btn dropdown px-3 !text-sm">
+            {{ n.label }}<span class="dots"></span>
           </button>
           <NuxtLink v-else :to="n.link" class="nav-link px-3 !text-sm" :data-text="n.label">
             {{ n.label }}
@@ -73,15 +91,24 @@ const navIcons = [
 
       <nav class="flex items-center slice-anim">
         <ul class="menu flex items-center">
-          <li v-for="(n, i) in navLinks" :key="`nav-link-${i}`" class="!hidden !lg:inline-block">
-            <button v-if="n.dropdown" :data-text="n.label" class="nav-link-btn dropdown px-5">
-              {{ n.label }}<span></span>
-            </button>
-            <NuxtLink v-else :to="n.link" class="nav-link px-5" :class="n.dropdown && 'dropdown'" :data-text="n.label">
-              {{ n.label }}
-              <span v-if="n.dropdown"></span>
-            </NuxtLink>
-          </li>
+          <template v-for="(n, i) in navLinks" :key="`main-nav-link-${i}`">
+            <li class="!hidden !lg:inline-block">
+              <NuxtLink
+                :to="n.link"
+                :data-text="n.label"
+                class="nav-link px-6 relative"
+                :class="n.dropdown && 'dropdown'"
+              >
+                {{ n.label }}
+                <span class="dots" v-if="n.dropdown" />
+                <span v-if="n.dropdown" @click="n.isOpen = !n.isOpen" class="absolute z-50 inset-0">
+                  <client-only>
+                    <DropdownList :open="n.isOpen" :id="n.label" :list="n.menu" />
+                  </client-only>
+                </span>
+              </NuxtLink>
+            </li>
+          </template>
         </ul>
         <ul class="menu-icon flex items-center">
           <li v-for="(n, i) in navIcons" :key="`nav-btn-${i}`" :title="n.label">
@@ -119,11 +146,26 @@ const navIcons = [
 }
 
 .nav-link,
-.nav-link-btn {
+.nav-btn {
   @apply flex font-semibold text-lg relative !text-black !dark:text-white py-0.5 !hover:text-teal-400;
 }
 
 .nav-icon-btn {
   @apply flex text-sm relative !text-black !dark:text-white !hover:text-teal-400;
+}
+
+.dropdown span.dots:after {
+  content: '';
+  position: absolute;
+  display: block;
+  bottom: 0;
+  right: 50%;
+  width: 3px;
+  height: 3px;
+  margin-left: -1px;
+  border-radius: 1.5px;
+  box-shadow: 5px 0 0 0, -5px 0 0 0, inset 0 0 0 3px;
+  opacity: 0.4;
+  transition: 0.2s opacity;
 }
 </style>
