@@ -14,6 +14,12 @@ const socialIcons = [
   { icon: 'bi:pinterest', label: 'Pinterest', link: 'https://www.pinterest.com/tokyotoolbox/' },
 ];
 
+const businessLinks = [
+  { link: '/about#team', label: 'Team' },
+  { link: '/about#corporate', label: 'Corporate Profile' },
+  //{ link: '/about#join', label: 'Careers' },
+]
+
 const quickLinks = [
   { link: '/about', label: 'About' },
   { link: '/blog', label: 'Blog' },
@@ -36,19 +42,12 @@ const usefulLinks = [
         <div class="flex flex-col">
           <div class="rainbow-text text-2xl mb-4">Tokyo<span class="heading-font">Toolbox</span></div>
           <p class="text-sm mb-2 font-light">{{ config.appDescription }}</p>
-          <NuxtLink to="/about#team">Team</NuxtLink>
-          <NuxtLink to="/about#Corporate">Corporate Profile</NuxtLink>
-          <!-- <NuxtLink to="/about#join">Careers</NuxtLink> -->
-
-          <div class="form-control mt-4">
-            <label class="text-xs font-simibold uppercase" for="subscribe">Join our newsletter</label>
-            <div class="flex items-center relative">
-              <input name="subscribe" class="p-2 bg-transparent border w-full pr-10" placeholder="your@email.com" />
-              <button class="absolute right-0 p-3 hover:text-teal-500">
-                <Icon icon="bi:arrow-right" />
-              </button>
-            </div>
-          </div>
+          <ul class="mb-2">
+            <li v-for="(l, i) in businessLinks" :key="`business-link-${i}`">
+              <NuxtLink :to="l.link">{{ l.label }}</NuxtLink>
+            </li>
+          </ul>
+          <JoinNewsletterForm />
         </div>
 
         <div>
