@@ -1,6 +1,18 @@
-<script setup lang="ts">
+<script setup>
 import { Icon } from '@iconify/vue';
+
+import { formatDate } from '../utils';
+
 const config = useRuntimeConfig();
+
+const blogQuery = queryContent('blog')
+  .only(['_path', 'title', 'date', 'cover_image'])
+  //.sort({ date: -1 })
+  .limit(3)
+  .find();
+const { data: recentPosts } = await useAsyncData('blogRecentPosts', async () => {
+  return await blogQuery;
+});
 
 const socialIcons = [
   {
@@ -18,7 +30,7 @@ const businessLinks = [
   { link: '/about#team', label: 'Team' },
   { link: '/about#corporate', label: 'Corporate Profile' },
   //{ link: '/about#join', label: 'Careers' },
-]
+];
 
 const quickLinks = [
   { link: '/about', label: 'About' },
@@ -40,7 +52,7 @@ const usefulLinks = [
     <div class="footer-wrapper">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-4">
         <div class="flex flex-col">
-          <div class="rainbow-text text-2xl mb-4">Tokyo<span class="heading-font">Toolbox</span></div>
+          <div class="rainbow-text text-2xl mb-4 font-black">Tokyo<span class="heading-font">Toolbox</span></div>
           <p class="text-sm mb-2 font-light">{{ config.appDescription }}</p>
           <ul class="mb-2">
             <li v-for="(l, i) in businessLinks" :key="`business-link-${i}`">
@@ -53,25 +65,24 @@ const usefulLinks = [
         <div>
           <h2 class="text-2xl mb-4">Recent Posts</h2>
           <client-only>
-          <ContentList
-            path="/blog"
-            :query="{
-              only: ['title', '_path', 'date', 'cover_image'],
-              $sensitivity: 'base',
-            }"
-          >
-            <template v-slot="{list}">
-              <ul class="flex flex-col gap-3">
-                <li v-for="(p, i) in list.slice(3)" :key="`recent-posts-${i}`" class="flex gap-4">
-                  <img :src="`/${p.cover_image}`" :alt="p.title" class="post-img h-11" />
-                  <p class="text-ellipsis overflow-hidden">
-                    <NuxtLink :to="p._path" class="truncate" :title="p.title">{{ p.title }}</NuxtLink>
-                    <div class="text-xs mt-0.5">{{p.date}}</div>
-                  </p>
-                </li>
+            <div>
+              <ul v-if="recentPosts.length" class="flex flex-col gap-3">
+                <template v-for="(p, i) in recentPosts.slice(0, 3)" :key="`recentPost-${i}`">
+                  <li class="flex gap-4">
+                    <img v-if="p.cover_image" :src="`/${p.cover_image}`" :alt="p.title" class="post-img h-11" />
+                    <div v-else class="post-img w-11 h-11 bg-gray-500" />
+                    <p class="text-ellipsis overflow-hidden">
+                      <NuxtLink :to="p._path" class="truncate" :title="p.title">{{ p.title }}</NuxtLink>
+                      <br />
+                      <small v-if="p.date" class="text-xs uppercase">{{ formatDate(new Date(p.date)) }}</small>
+                    </p>
+                  </li>
+                </template>
               </ul>
-            </template>
-          </ContentList>
+              <div v-else>
+                <p>No posts found.</p>
+              </div>
+            </div>
           </client-only>
         </div>
 
@@ -99,8 +110,10 @@ const usefulLinks = [
         </div>
       </div>
 
-      <div class="uppercase flex items-center h-16 border-b justify-between md:px-[4%] lg:px-[8%]">
-        <h2 class="text-xl md:text-3xl">Connect&nbsp;<span class="text-teal-500 !text-sm !md:text-lg">with</span>&nbsp;Us</h2>
+      <div class="uppercase flex items-center h-16 border-b border-primary justify-between md:px-[4%] lg:px-[8%]">
+        <h2 class="text-xl md:text-3xl">
+          Connect&nbsp;<span class="text-primary !text-sm !md:text-lg">with</span>&nbsp;Us
+        </h2>
         <ul class="flex gap-4 text-xl">
           <li v-for="(s, i) in socialIcons" :key="`social-icon--footer-${i}`" :title="s.label">
             <a :href="s.link" target="_blank"><Icon :icon="s.icon" /></a>
@@ -111,7 +124,7 @@ const usefulLinks = [
       <div class="flex flex-col md:flex-row items-center justify-between my-3">
         <p class="text-xs md:text-sm">
           &copy; {{ new Date().getFullYear() }}
-          <span class="text-teal-500">Tokyo<span class="heading-font">Toolbox</span></span>
+          <span class="text-primary">Tokyo<span class="heading-font">Toolbox</span></span>
           All Rights Reserved.
         </p>
         <div class="divide-x divide text-xs md:text-sm">
@@ -138,7 +151,7 @@ const usefulLinks = [
 
 a {
   font-family: 'Marcellus SC', Georgia, serif;
-  @apply text-teal-500 hover:text-teal-700 cursor-pointer;
+  @apply text-primary hover:text-teal-700 cursor-pointer;
 }
 
 img.post-img {

@@ -12,6 +12,10 @@ tags:
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et odio pellentesque diam volutpat commodo sed egestas. Sem et tortor consequat id porta.
 
+TODO: .md files must be in 'LF' and not 'CRLF' to fix fontmatter issue
+issue: https://github.com/nuxt/content/issues/1137
+fix: https://github.com/nuxt/content/pull/1161
+
 # Markdown: Syntax
 
 *   [Overview](#overview)

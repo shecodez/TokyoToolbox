@@ -45,7 +45,7 @@ async function joinNewsletter() {
           placeholder="your@email.com"
           class="w-full p-2 bg-transparent border pr-10"
         />
-        <button class="absolute right-0 p-3 hover:text-teal-500" :class="state.loading && 'loading'">
+        <button class="absolute right-0 p-3 hover:text-primary" :class="state.loading && 'loading'">
           <Icon icon="bi:arrow-right" />
           <span class="sr-only">Subscribe</span>
         </button>
@@ -63,7 +63,7 @@ async function joinNewsletter() {
 <style scoped>
 a {
   font-family: 'Marcellus SC', Georgia, serif;
-  @apply text-teal-500 hover:text-teal-700 cursor-pointer;
+  @apply text-primary hover:text-teal-700 cursor-pointer;
 }
 
 .success-alert {

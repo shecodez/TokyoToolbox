@@ -17,7 +17,6 @@ const socialIcons = [
   { icon: 'bi:twitter', label: 'Twitter', link: 'https://twitter.com/TokyoToolbox' },
   { icon: 'bi:youtube', label: 'YouTube', link: 'https://www.youtube.com/channel/UCzV2BYxwNJlgc67Szapji0g' },
 ];
-
 const navLinks = ref([
   { link: '/about', label: 'About' },
   {
@@ -37,8 +36,8 @@ const navLinks = ref([
     dropdown: true,
     isOpen: false,
     menu: [
-      { link: '/shop#all', label: 'All' },
-      { link: '/shop#merch', label: 'Merch' },
+      { link: { path: '/shop', query: { category: "men's clothing" } }, label: "Men's Clothing" },
+      { link: { path: '/shop', query: { category: "women's clothing" } }, label: "Women's Clothing" },
     ],
   },
   { link: '/contact', label: 'Contact' },
@@ -58,12 +57,12 @@ const navIcons = [
         <button class="nav-icon-btn" title="translate">
           <Icon icon="bi:translate" />
         </button>
-        <li v-for="(n, i) in topLinks" :key="`top-nav-link-${i}`" class="!hidden !lg:inline-block">
-          <button v-if="n.dropdown" :data-text="n.label" class="slice nav-btn dropdown px-3 !text-sm">
+        <li v-for="(n, i) in topLinks" :key="`top-nav-link-${i}`" class="hidden lg:inline-block">
+          <button v-if="n.dropdown" :data-text="n.label" class="slice top-nav-btn dropdown">
             {{ n.label }}<span class="dots"></span>
           </button>
           <div v-else class="slice-line">
-            <NuxtLink :to="n.link" class="slice nav-link px-3 !text-sm" :data-text="n.label">
+            <NuxtLink :to="n.link" class="slice top-nav-link" :data-text="n.label">
               {{ n.label }}
             </NuxtLink>
           </div>
@@ -94,7 +93,7 @@ const navIcons = [
       <nav class="flex items-center slice-anim">
         <ul class="menu flex items-center">
           <template v-for="(n, i) in navLinks" :key="`main-nav-link-${i}`">
-            <li class="group relative !hidden !lg:inline-block">
+            <li class="group relative hidden lg:inline-block">
               <div class="slice-line">
                 <NuxtLink
                   :to="n.link"
@@ -107,13 +106,13 @@ const navIcons = [
                 </NuxtLink>
               </div>
               <div v-if="n.dropdown" class="dropdown-menu slice-anim group-hover:block h-auto hidden absolute">
-                <ul class="menu top-0 w-42 bg-black shadow-lg py-3">
+                <ul class="menu top-0 w-42 bg-gray-300 dark:bg-black shadow-lg py-3">
                   <template v-for="(d, i) in n.menu" :key="`dropdown-${n.label}-li-${i}`">
                     <div class="slice-line">
                       <li class="text-sm hover:text-teal-600">
-                        <NuxtLink :to="d.link" :data-text="d.label" class="slice px-4 py-2 block">{{
-                          d.label
-                        }}</NuxtLink>
+                        <NuxtLink :to="d.link" :data-text="d.label" class="slice px-4 py-2 block" exact>
+                          {{ d.label }}
+                        </NuxtLink>
                       </li>
                     </div>
                   </template>
@@ -139,14 +138,14 @@ const navIcons = [
   </header>
 </template>
 
-<style scoped>
+<style>
 .site-top-header {
   @apply bg-gray-300 dark:bg-black;
 }
 
 .site-main-header {
   backdrop-filter: saturate(180%) blur(20px);
-  @apply bg-white dark:bg-black !bg-opacity-40 shadow-lg sticky top-0 z-20;
+  @apply bg-white dark:bg-black bg-opacity-40 dark:bg-opacity-40 shadow-lg sticky top-0 z-20;
 }
 
 .header-wrapper {
@@ -157,13 +156,17 @@ const navIcons = [
   @apply font-black text-lg lg:text-2xl;
 }
 
+.top-nav-link,
+.top-nav-btn {
+  @apply flex text-sm tracking-wider px-3 py-0.5;
+}
 .nav-link,
 .nav-btn {
   @apply flex font-semibold text-lg tracking-wider py-0.5;
 }
 
 .nav-icon-btn {
-  @apply flex relative text-black dark:text-white !hover:text-teal-500;
+  @apply flex relative text-black dark:text-white hover:text-primary;
 }
 
 .dropdown span.dots:after {
@@ -250,7 +253,7 @@ const navIcons = [
   height: 1px;
   left: -100%;
   transition: 0.5s;
-  @apply bg-teal-500;
+  @apply bg-primary;
 }
 .slice-anim ul.menu .slice-line:hover:before {
   left: 100%;
@@ -271,12 +274,12 @@ ul.menu li button:hover:before,
 ul.menu li button:hover:after,
 ul.menu li:hover span.dots:before,
 ul.menu li:hover span.dots:after {
-  @apply text-teal-500;
+  @apply text-primary;
 }
 
 ul.menu li a.router-link-active:before,
 ul.menu li a.router-link-active:after,
 ul.menu-icon li a.router-link-active > svg {
-  @apply text-teal-500;
+  @apply text-primary;
 }
 </style>
