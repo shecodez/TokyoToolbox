@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 import ToggleTheme from '../components/ToggleTheme.vue';
+import SideNav from './SideNav.vue';
+
+const sideNavOpen = ref(false);
+function openSideNav() {
+  sideNavOpen.value = true;
+}
+function closeSideNav() {
+  sideNavOpen.value = false;
+}
 
 const topLinks = [
   { label: 'English', dropdown: true },
@@ -82,8 +91,8 @@ const navIcons = [
   <header class="site-main-header">
     <div class="header-wrapper h-20">
       <div class="flex gap-2.5 items-center">
-        <Icon class="hidden lg:inline-block" icon="bi:tools" />
-        <button class="inline-block lg:hidden" title="menu">
+        <Icon @click="openSideNav" class="hidden lg:inline-block" icon="bi:tools" />
+        <button @click="openSideNav" class="inline-block lg:hidden" title="menu">
           <Icon icon="fa:bars" />
           <span class="sr-only">Menu</span>
         </button>
@@ -136,9 +145,11 @@ const navIcons = [
       </nav>
     </div>
   </header>
+
+  <SideNav :open="sideNavOpen" @close="closeSideNav" />
 </template>
 
-<style>
+<style scoped>
 .site-top-header {
   @apply bg-gray-300 dark:bg-black;
 }
@@ -149,7 +160,7 @@ const navIcons = [
 }
 
 .header-wrapper {
-  @apply container mx-auto flex items-center justify-between;
+  @apply container mx-auto px-4 md:px-0 flex items-center justify-between;
 }
 
 .site-logo {

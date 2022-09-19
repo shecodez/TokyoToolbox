@@ -115,7 +115,7 @@ const usefulLinks = [
           Connect&nbsp;<span class="text-primary !text-sm !md:text-lg">with</span>&nbsp;Us
         </h2>
         <ul class="flex gap-4 text-xl">
-          <li v-for="(s, i) in socialIcons" :key="`social-icon--footer-${i}`" :title="s.label">
+          <li v-for="(s, i) in socialIcons" :key="`footer-social-icon-${i}`" :title="s.label">
             <a :href="s.link" target="_blank"><Icon :icon="s.icon" /></a>
           </li>
         </ul>
@@ -142,7 +142,7 @@ const usefulLinks = [
 
 <style scoped>
 .site-footer {
-  @apply bg-gray-300 dark:bg-black pt-6 pb-3;
+  @apply px-4 md:px-0 bg-gray-300 dark:bg-black pt-6 pb-3;
 }
 
 .footer-wrapper {

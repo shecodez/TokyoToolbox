@@ -69,7 +69,7 @@ useHead({
             @click="setCategory(null)"
             class="flex items-center gap-2 px-2 py-1 bg-gray-300 dark:bg-gray-900 uppercase rounded-sm text-sm tracking-wide"
           >
-            clear <icon icon="bi:x-lg" />
+            clear <Icon icon="bi:x-lg" />
           </button>
         </div>
         <div class="flex items-center gap-4 mb-4">

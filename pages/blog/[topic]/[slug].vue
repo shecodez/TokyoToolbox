@@ -80,7 +80,7 @@ useHead({
 
 <style scoped>
 .post-container {
-  @apply py-4 max-w-5xl m-auto;
+  @apply py-4 px-4 md:px-0 max-w-5xl m-auto;
 }
 .post-header {
   @apply py-4;
