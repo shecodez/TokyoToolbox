@@ -1,7 +1,8 @@
 <script setup>
+import { Icon } from '@iconify/vue';
+
 import { formatDate } from '~~/utils';
 
-const blogNavQuery = queryContent('blog');
 const blogQuery = queryContent('blog')
   .only(['_path', 'title', 'description', 'date', 'cover_image'])
   .sort({ date: -1 })
@@ -18,38 +19,45 @@ useHead({
 </script>
 
 <template>
-  <div class="container mx-auto pt-16 lg:pt-24 pb-20 lg:pb-28">
-    <div class="border-b border-b-gray-200 pb-3 mb-2">
-      <h2 class="text-2xl lg:text-4xl font-bold tracking-tight">Blog</h2>
+  <div class="relative">
+    <div class="fixed flex flex-col justify-center inset-y-0 right-6 gap-6 z-50">
+      <NuxtLink to="/blog/topics" class="icon-link" title="Topics">
+        <Icon icon="ic:baseline-topic" />
+        <span class="sr-only">Topics</span>
+      </NuxtLink>
+      <NuxtLink to="/blog/tags" class="icon-link" title="Tags">
+        <Icon icon="fa6-solid:tags" />
+        <span class="sr-only">Tags</span>
+      </NuxtLink>
     </div>
 
-    <section class="blog-categories flex divide-x">
-      <client-only>
-        <ContentNavigation v-slot="{ navigation }" :query="blogNavQuery">
-          <div v-for="link of navigation[0].children" :key="link._path" class="px-2 first:pl-0">
-            <NuxtLink :to="`/blog/categories/${link.title}`">{{ link.title }}</NuxtLink>
-          </div>
-        </ContentNavigation>
-      </client-only>
-    </section>
-
-    <section class="my-10">
+    <section class="m-2">
       <client-only>
         <div class="posts grid grid-flow-row-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           <div class="post p-4 col-span-2">example col-span-2 (opened)</div>
+          <div class="post p-4 row-span-2">example row-span-2</div>
           <template v-if="posts.length" v-for="(p, i) in posts" :key="`post-${i}`">
-            <div class="post flex">
+            <div class="post aspect-video flex" :class="i % 2 === 0 && 'flex-row-reverse'">
               <div v-if="p.cover_image" class="flex-1 overflow-hidden">
                 <img :src="`/${p.cover_image}`" :alt="p.title" class="post-img h-auto" />
               </div>
-              <div class="flex-1 flex flex-col items-stretch p-4">
-                <small class="category uppercase text-primary text-xs">
-                  {{ p._path.split('/')[2].replace('-', ' ') }}
+              <div class="flex-1 relative flex flex-col items-stretch p-4">
+                <template v-if="p.cover_image">
+                  <div v-if="i % 2 === 0" class="arrow arrow-right absolute top-10 -right-5"></div>
+                  <div v-else class="arrow arrow-left absolute top-10 -left-5"></div>
+                </template>
+
+                <small class="topic uppercase text-primary text-xs pb-1">
+                  <NuxtLink :to="`/blog/topics/${p._path.split('/')[2]}`" class="hover:underline">
+                    {{ p._path.split('/')[2].replace('-', ' ') }}
+                  </NuxtLink>
                 </small>
-                <h3 class="hover:text-primary leading-5 pb-2">
+                <h3 class="hover:text-primary lg:text-xl xl:text-2xl leading-5 pb-2">
                   <NuxtLink :to="p._path" class="line-clamp-2" :title="p.title">{{ p.title }}</NuxtLink>
                 </h3>
-                <p class="line-clamp-3 text-xs tracking-wide font-thin leading-relazed">{{ p.description }}</p>
+                <p class="line-clamp-3 text-xs lg:text-base xl:text-lg tracking-wide font-thin leading-relazed">
+                  {{ p.description }}
+                </p>
                 <br />
                 <small v-if="p.date" class="text-xs uppercase mt-auto">{{ formatDate(new Date(p.date)) }}</small>
               </div>
@@ -93,7 +101,7 @@ useHead({
 
 <style scoped>
 .post {
-  @apply bg-gray-300 bg-opacity-70 dark:bg-gray-900 dark:bg-opacity-70;
+  @apply bg-gray-300 dark:bg-gray-900;
 }
 .line-clamp-2 {
   overflow: hidden;
@@ -111,5 +119,24 @@ useHead({
 
 .post img {
   @apply h-full w-full object-cover;
+}
+
+.icon-link {
+  @apply text-xl p-2 rounded bg-primary hover:bg-teal-700;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+.arrow-right {
+  border-left: 20px solid transparent;
+  @apply border-l-gray-300 dark:border-l-gray-900;
+}
+.arrow-left {
+  border-right: 20px solid transparent;
+  @apply border-r-gray-300 dark:border-r-gray-900;
 }
 </style>

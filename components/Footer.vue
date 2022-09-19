@@ -7,10 +7,10 @@ const config = useRuntimeConfig();
 
 const blogQuery = queryContent('blog')
   .only(['_path', 'title', 'date', 'cover_image'])
-  //.sort({ date: -1 })
+  .sort({ date: -1 })
   .limit(3)
   .find();
-const { data: recentPosts } = await useAsyncData('blogRecentPosts', async () => {
+const { data: recentPosts } = await useAsyncData('blog-recent3', async () => {
   return await blogQuery;
 });
 
@@ -53,7 +53,7 @@ const usefulLinks = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-4">
         <div class="flex flex-col">
           <div class="rainbow-text text-2xl mb-4 font-black">Tokyo<span class="heading-font">Toolbox</span></div>
-          <p class="text-sm mb-2 font-light">{{ config.appDescription }}</p>
+          <p class="text-sm xl:text-base mb-2 font-light">{{ config.appDescription }}</p>
           <ul class="mb-2">
             <li v-for="(l, i) in businessLinks" :key="`business-link-${i}`">
               <NuxtLink :to="l.link">{{ l.label }}</NuxtLink>

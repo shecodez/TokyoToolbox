@@ -22,7 +22,7 @@ const { data: blogNav } = await useAsyncData('navigation', () => {
       <h2 class="text-center uppercase tracking-wider mb-10">Blog Posts</h2>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <template v-for="(b, i) in blogNav[0].children" :key="`blogCategory-${b._path}-${i}`">
+        <template v-for="(b, i) in blogNav[0].children" :key="`blogTopic-${b._path}-${i}`">
           <div class="px-7 py-5 rounded-lg border-2">
             <h3 class="rainbow-text text-lg font-semibold">
               {{ b.title }}

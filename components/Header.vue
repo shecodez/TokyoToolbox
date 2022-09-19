@@ -106,11 +106,11 @@ const navIcons = [
                 </NuxtLink>
               </div>
               <div v-if="n.dropdown" class="dropdown-menu slice-anim group-hover:block h-auto hidden absolute">
-                <ul class="menu top-0 w-42 bg-gray-300 dark:bg-black shadow-lg py-3">
+                <ul class="menu top-0 w-40 bg-gray-300 dark:bg-black shadow-lg py-3">
                   <template v-for="(d, i) in n.menu" :key="`dropdown-${n.label}-li-${i}`">
                     <div class="slice-line">
                       <li class="text-sm hover:text-teal-600">
-                        <NuxtLink :to="d.link" :data-text="d.label" class="slice px-4 py-2 block" exact>
+                        <NuxtLink :to="d.link" :data-text="d.label" class="slice px-4 py-2 block">
                           {{ d.label }}
                         </NuxtLink>
                       </li>
@@ -277,9 +277,9 @@ ul.menu li:hover span.dots:after {
   @apply text-primary;
 }
 
-ul.menu li a.router-link-active:before,
-ul.menu li a.router-link-active:after,
-ul.menu-icon li a.router-link-active > svg {
+ul.menu li a.router-link-exact-active:before,
+ul.menu li a.router-link-exact-active:after,
+ul.menu-icon li a.router-link-exact-active > svg {
   @apply text-primary;
 }
 </style>

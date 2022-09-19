@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue';
 import { formatDate } from '~~/utils';
 
 const { path } = useRoute();
-const { data } = await useAsyncData(`content-${path}`, async () => {
+const { data } = await useAsyncData(`post-topic-${path}`, async () => {
   // fetch document where the document path matches with the cuurent route
   let post = queryContent().where({ _path: path }).findOne();
 
@@ -45,7 +45,7 @@ useHead({
       <small v-if="data.post.date" class="text-xs">{{ formatDate(new Date(data.post.date)) }}</small>
       <h1 class="rainbow-text title">{{ data.post.title }}</h1>
       <h4 v-if="data.post.author" class="text-gray-400">by: {{ data.post.author }}</h4>
-      <p class="category">
+      <p class="topic">
         in
         <span class="uppercase text-primary">{{ data.post._path.split('/')[2].replace('-', ' ') }}</span>
       </p>
@@ -91,7 +91,7 @@ useHead({
 .post-header .title {
   @apply font-extrabold text-5xl pb-4;
 }
-.post-header .category {
+.post-header .topic {
   @apply font-medium text-lg;
 }
 .post-tags {

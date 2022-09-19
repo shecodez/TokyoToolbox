@@ -34,6 +34,12 @@ function setCategory(category) {
   }
 }
 
+watch(route, (route) => {
+  if (activeCategory.value !== route.query.category) {
+    setCategory(route.query.category);
+  }
+});
+
 const filteredProducts = computed(() => {
   if (!activeCategory.value) return products.value[0].body;
 

@@ -26,10 +26,10 @@ const socialIcons = [
 
 <style scoped>
 .social-icons-menu {
-  @apply fixed flex flex-col justify-center inset-y-0 left-6 gap-8 z-50;
+  @apply fixed flex flex-col justify-center inset-y-0 left-6 gap-6 z-50;
 }
 .social-icon-link {
-  @apply flex items-center gap-6 text-xl;
+  @apply flex items-center gap-6 text-xl px-2 h-auto rounded aspect-square bg-white dark:bg-gray-800;
 }
 .social-icon-link svg {
   opacity: 0.7;

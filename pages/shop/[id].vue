@@ -12,7 +12,7 @@ const { data: product } = await useAsyncData(`product-${id}`, async () => {
 
 const config = useRuntimeConfig();
 useHead({
-  title: `${product.title} | ${config.public.appName}`, //${product.value.title}
+  title: `${product.value.title} | ${config.public.appName}`,
 });
 </script>
 
