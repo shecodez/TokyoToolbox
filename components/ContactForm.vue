@@ -1,6 +1,8 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
+import { encode } from '~~/utils';
+
 const formEl = ref();
 const form = reactive({
   email: '',
@@ -37,10 +39,10 @@ async function handleSubmit() {
       });
     }
   } catch (error) {
-    // console.error(error);
+    console.error(error);
     state.error = 'Error sending message, please try again later.';
   } finally {
-    state.loading = true;
+    state.loading = false;
     state.sent = true;
   }
 
@@ -54,17 +56,13 @@ async function handleSubmit() {
 
 <template>
   <div class="contact-form">
-    <div v-if="state.sent" class="p-4 flex items-center my-4" :class="state.error ? 'error-alert' : 'success-alert'">
+    <div v-if="state.isBot" class="alert bot-alert">🍯 Oh honey pot! We think not, you're a bot!</div>
+    <div v-if="state.sent" class="alert" :class="state.error ? 'error-alert' : 'success-alert'">
       <span v-if="state.error">❗ {{ state.error }}</span>
       <span v-else>✔️ Message sent. Thanks!</span>
     </div>
-    <div v-if="state.isBot" class="bot-alert p-4 flex items-center my-4">
-      🍯 Oh honey pot! We think not, you're a bot!
-    </div>
-
     <form v-else name="contact" netlify ref="formEl" @submit.prevent="handleSubmit">
       <input type="hidden" name="form-name" value="contact" />
-
       <div class="flex flex-col md:flex-row gap-3">
         <div class="flex-1">
           <label for="name" class="sr-only">Name</label>
@@ -75,21 +73,19 @@ async function handleSubmit() {
           <input type="email" v-model="form.email" name="email" placeholder="E-mail" required />
         </div>
       </div>
+      <div>
+        <label for="subject" class="sr-only">Subject</label>
+        <input type="text" v-model="form.subject" name="subject" placeholder="Subject" />
+      </div>
       <div class="hidden">
         <label class="sr-only">Don't fill this out if you're human</label>
         <input v-model="state.bot" name="bot-field" placeholder="This field is only for bots." />
       </div>
       <div>
-        <label for="subject" class="sr-only">Subject</label>
-        <input type="text" v-model="form.subject" name="subject" placeholder="Subject" />
-      </div>
-      <div>
         <label for="message" class="sr-only">Message*</label>
         <textarea v-model="form.message" name="message" placeholder="Message" rows="4" required />
       </div>
-
       <!-- <div data-netlify-recaptcha="true" /> -->
-
       <button type="submit" class="send-btn rainbow-bg">
         <Icon v-if="state.loading" icon="gg:spinner-two" class="animate-spin" />
         <Icon v-else icon="bi:send-fill" />
@@ -122,13 +118,16 @@ textarea[required] {
   @apply w-max px-6 py-2 uppercase hover:ring ring-current flex items-center gap-2;
 }
 
+.alert {
+  @apply p-4 flex items-center my-4;
+}
 .success-alert {
-  @apply border-l-4 border-green-500 bg-green-400 bg-opacity-30 text-green-500;
+  @apply border-l-4 border-green-600 bg-green-400 bg-opacity-20 text-green-600;
 }
 .error-alert {
-  @apply border-l-4 border-red-500 bg-red-400 bg-opacity-30 text-red-500;
+  @apply border-l-4 border-red-600 bg-red-400 bg-opacity-20 text-red-600;
 }
 .bot-alert {
-  @apply border-l-4 border-orange-500 bg-orange-400 bg-opacity-30 text-orange-500;
+  @apply border-l-4 border-orange-600 bg-orange-400 bg-opacity-20 text-orange-600;
 }
 </style>
