@@ -112,7 +112,7 @@ section.post {
   @apply col-span-full md:col-span-2 row-start-1 w-full mt-6;
 }
 aside > .toc {
-  @apply sticky top-20;
+  @apply sticky top-0;
 }
 .article {
   @apply col-span-full md:col-span-6 w-full;

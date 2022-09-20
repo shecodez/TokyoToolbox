@@ -35,7 +35,7 @@ async function joinNewsletter() {
     <div v-if="state.sent" class="success-alert p-2 flex items-center my-1">✔️ We added you. Thanks!</div>
 
     <div class="form-control">
-      <label for="email" class="text-xs font-simibold uppercase pb-2">Join our newsletter</label>
+      <label for="email" class="text-xs font-simibold uppercase pb-2">Join our Community</label>
       <div class="flex items-center relative">
         <input
           name="email"
@@ -52,9 +52,9 @@ async function joinNewsletter() {
       </div>
       <p class="dark:text-gray-400 mt-2 text-xs">
         By clicking <Icon icon="bi:arrow-right" class="inline" /> you also agree to our
-        <NuxtLink to="">Privacy Policy</NuxtLink>
+        <NuxtLink to="/legal/privacy">Privacy Policy</NuxtLink>
         and
-        <NuxtLink to="">Terms of Service</NuxtLink>. We promise, no green eggs or spam from us. 😉
+        <NuxtLink to="/legal/terms">Terms of Service</NuxtLink>. We promise, no green eggs or spam from us. 😉
       </p>
     </div>
   </form>

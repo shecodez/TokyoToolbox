@@ -11,3 +11,10 @@ export const formatDate = (date: Date, locale = 'en-GB'): string => {
   const options = { year: 'numeric', month: 'short', day: '2-digit' };
   return new Intl.DateTimeFormat(locale, options).format(date);
 };
+
+// https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
+export function encode(data: any) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+}

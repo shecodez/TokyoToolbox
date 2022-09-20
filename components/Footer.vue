@@ -128,8 +128,8 @@ const usefulLinks = [
           All Rights Reserved.
         </p>
         <div class="divide-x divide text-xs md:text-sm">
-          <a class="h5 pr-2">Privacy Policy</a>
-          <a class="h5 pl-2">Terms of Services</a>
+          <NuxtLink to="/legal/privacy" class="h5 pr-2">Privacy Policy</NuxtLink>
+          <NuxtLink to="/legal/terms" class="h5 pl-2">Terms of Services</NuxtLink>
         </div>
       </div>
 
