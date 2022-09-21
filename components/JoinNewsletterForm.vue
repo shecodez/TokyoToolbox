@@ -51,10 +51,10 @@ async function joinNewsletter() {
         </button>
       </div>
       <p class="dark:text-gray-400 mt-2 text-xs">
-        By clicking <Icon icon="bi:arrow-right" class="inline" /> you also agree to our
+        By clicking <Icon icon="bi:arrow-right" class="inline" /> you are agreeing to our
         <NuxtLink to="/legal/privacy">Privacy Policy</NuxtLink>
         and
-        <NuxtLink to="/legal/terms">Terms of Service</NuxtLink>. We promise, no green eggs or spam from us. 😉
+        <NuxtLink to="/legal/terms">Terms of Use</NuxtLink>. We promise, no green eggs or spam from us. 😉
       </p>
     </div>
   </form>

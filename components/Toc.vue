@@ -38,8 +38,8 @@ const flattenLinks = (links) => {
 
 <style scoped>
 .toc {
-  @apply p-4 border border-gray-200 rounded-lg;
-  @apply max-h-[calc(100vh-6rem)] overflow-auto;
+  @apply p-4 border border-gray-200 rounded;
+  @apply max-h-[calc(100vh-10rem)] overflow-auto;
 }
 
 .toc-header {

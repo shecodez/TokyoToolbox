@@ -129,7 +129,7 @@ const usefulLinks = [
         </p>
         <div class="divide-x divide text-xs md:text-sm">
           <NuxtLink to="/legal/privacy" class="h5 pr-2">Privacy Policy</NuxtLink>
-          <NuxtLink to="/legal/terms" class="h5 pl-2">Terms of Services</NuxtLink>
+          <NuxtLink to="/legal/terms" class="h5 pl-2">Terms of Use</NuxtLink>
         </div>
       </div>
 

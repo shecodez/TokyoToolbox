@@ -4,7 +4,7 @@
       <ContentDoc>
         <template v-slot="{ doc }">
           <section class="flex gap-10">
-            <aside v-if="!!doc.body.toc.links.length" class="hidden md:block">
+            <aside v-if="!!doc.body.toc.links.length" class="w-64 hidden md:block">
               <Toc :links="doc.body.toc.links" />
             </aside>
             <article class="px-4 md:px-0 prose dark:prose-invert prose-sm lg:prose-lg">
@@ -22,6 +22,6 @@
 
 <style scoped>
 aside > .toc {
-  @apply sticky top-28;
+  @apply sticky top-24;
 }
 </style>

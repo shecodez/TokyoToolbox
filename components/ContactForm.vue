@@ -65,7 +65,7 @@ async function handleSubmit() {
       <input type="hidden" name="form-name" value="contact" />
       <div class="flex flex-col md:flex-row gap-3">
         <div class="flex-1">
-          <label for="name" class="sr-only">Name</label>
+          <label for="name" class="sr-only">Name*</label>
           <input type="text" v-model="form.name" name="name" placeholder="Name" required />
         </div>
         <div class="flex-1">
