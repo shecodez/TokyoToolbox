@@ -27,8 +27,8 @@ const socialIcons = [
 ];
 
 const businessLinks = [
-  { link: '/about#team', label: 'Team' },
-  { link: '/about#corporate', label: 'Corporate Profile' },
+  //{ link: '/about#team', label: 'Team' },
+  //{ link: '/about#corporate', label: 'Corporate Profile' },
   //{ link: '/about#join', label: 'Careers' },
 ];
 
@@ -42,7 +42,7 @@ const quickLinks = [
 
 const usefulLinks = [
   { link: '', label: 'Sitemap' },
-  { link: '', label: 'FAQ' },
+  { link: '/faq', label: 'FAQ' },
   { link: '', label: 'Support' },
 ];
 </script>
@@ -142,7 +142,7 @@ const usefulLinks = [
 
 <style scoped>
 .site-footer {
-  @apply px-4 md:px-0 bg-gray-300 dark:bg-black pt-6 pb-3;
+  @apply px-4 md:px-0 bg-gray-300 dark:bg-black pt-6 pb-3 mt-auto;
 }
 
 .footer-wrapper {
