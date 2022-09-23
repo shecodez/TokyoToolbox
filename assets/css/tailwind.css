@@ -9,9 +9,9 @@ html {
   scroll-behavior: smooth;
 }
 
-html.dark {
+/* html.dark {
   @apply bg-gray-800 text-gray-50;
-}
+} */
 
 html,
 body {

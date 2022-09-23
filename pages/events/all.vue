@@ -106,7 +106,7 @@ const calendarOptions = {
               <span class="text-xs uppercase">東京</span>
             </div>
           </div>
-          <div class="ml-auto flex items-center pr-3">
+          <div class="ml-auto flex items-center pr-2">
             <span class="text-4xl font-bold">72</span>
             <Icon icon="bx:circle" class="py-1 self-start" />
             <h5 class="font-bold">F</h5>

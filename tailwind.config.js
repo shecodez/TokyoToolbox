@@ -19,9 +19,6 @@ module.exports = {
           ...colors.violet,
         },
       },
-      fontFamily: {
-        sans: ['Inter'],
-      },
     },
   },
   plugins: [require('@tailwindcss/typography')],

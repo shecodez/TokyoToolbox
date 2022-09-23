@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script setup>
 import { Icon } from '@iconify/vue';
-import ToggleTheme from '../components/ToggleTheme.vue';
-import SideNav from './SideNav.vue';
+
+import ToggleColorMode from '@/components/ToggleColorMode.vue';
+import SideNav from '@/components/SideNav.vue';
 
 const sideNavOpen = ref(false);
 function openSideNav() {
@@ -54,7 +55,7 @@ const navLinks = ref([
 const navIcons = [
   { icon: 'bi:search', label: 'Search' },
   { icon: 'bi:cart-fill', label: 'Shopping Cart' },
-  { icon: 'bi:sun-fill', label: 'Toggle Dark Mode' }, //component: ToggleTheme,
+  { component: ToggleColorMode, label: 'Toggle Dark Mode' }, //component: ToggleColorMode,
   { link: '/auth/login', icon: 'bi:lock-fill', label: 'Login' },
 ];
 </script>
@@ -131,16 +132,18 @@ const navIcons = [
           </template>
         </ul>
         <ul class="menu-icon flex items-center">
-          <li v-for="(n, i) in navIcons" :key="`nav-btn-${i}`" :title="n.label">
-            <NuxtLink v-if="!!n.link" :to="n.link" class="nav-icon-btn px-2.5">
-              <Icon :icon="n.icon" />
-            </NuxtLink>
-            <button v-else class="nav-icon-btn px-2.5">
-              <!-- <div v-if="!!n.component">?</div> -->
-              <Icon :icon="n.icon" />
-              <span class="sr-only">{{ n.label }}</span>
-            </button>
-          </li>
+          <template v-for="(n, i) in navIcons" :key="`nav-btn-${i}`">
+            <li class="nav-icon-btn px-2.5" :title="n.label">
+              <NuxtLink v-if="!!n.link" :to="n.link">
+                <Icon :icon="n.icon" />
+              </NuxtLink>
+              <component v-else-if="n.component" :is="n.component" />
+              <button v-else>
+                <Icon :icon="n.icon" />
+                <span class="sr-only">{{ n.label }}</span>
+              </button>
+            </li>
+          </template>
         </ul>
       </nav>
     </div>
@@ -177,7 +180,7 @@ const navIcons = [
 }
 
 .nav-icon-btn {
-  @apply flex relative text-black dark:text-white hover:text-primary;
+  @apply flex relative  hover:text-primary;
 }
 
 .dropdown span.dots:after {

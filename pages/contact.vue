@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 const config = useRuntimeConfig();
 useHead({
   title: `Contact | ${config.public.appName}`,

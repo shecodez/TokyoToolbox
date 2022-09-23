@@ -4,6 +4,10 @@ import { defineNuxtConfig } from 'nuxt';
 export default defineNuxtConfig({
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
 
+  // colorMode: {
+  //   classSuffix: '',
+  // },
+
   // build: {
   //   transpile: ['@fullcalendar'],
   // },
