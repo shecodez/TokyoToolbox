@@ -2,15 +2,10 @@
 import { Icon } from '@iconify/vue';
 
 import ToggleColorMode from '@/components/ToggleColorMode.vue';
-import SideNav from '@/components/SideNav.vue';
-
-const sideNavOpen = ref(false);
-function openSideNav() {
-  sideNavOpen.value = true;
-}
-function closeSideNav() {
-  sideNavOpen.value = false;
-}
+import SideNavDrawer from '@/components/SideNavDrawer.vue';
+import SearchModal from '@/components/SearchModal.vue';
+import ShopCartDrawer from '@/components/ShopCartDrawer.vue';
+import UserProfileDrawer from '@/components/UserProfileDrawer.vue';
 
 const topLinks = [
   { label: 'English', dropdown: true },
@@ -53,10 +48,11 @@ const navLinks = ref([
   { link: '/contact', label: 'Contact' },
 ]);
 const navIcons = [
-  { icon: 'bi:search', label: 'Search' },
-  { icon: 'bi:cart-fill', label: 'Shopping Cart' },
+  { component: SearchModal, label: 'Search' },
+  { component: ShopCartDrawer, label: 'Shopping Cart' },
   { component: ToggleColorMode, label: 'Toggle Dark Mode' }, //component: ToggleColorMode,
   { link: '/auth/login', icon: 'bi:lock-fill', label: 'Login' },
+  //{ component: UserProfileDrawer, label: 'Profile' },
 ];
 </script>
 
@@ -92,11 +88,10 @@ const navIcons = [
   <header class="site-main-header">
     <div class="header-wrapper h-20">
       <div class="flex gap-2.5 items-center">
-        <Icon @click="openSideNav" class="hidden lg:inline-block" icon="bi:tools" />
-        <button @click="openSideNav" class="inline-block lg:hidden" title="menu">
-          <Icon icon="fa:bars" />
-          <span class="sr-only">Menu</span>
-        </button>
+        <SideNavDrawer>
+          <Icon icon="bi:tools" class="hidden lg:inline-block" />
+          <Icon icon="fa:bars" class="inline-block lg:hidden" />
+        </SideNavDrawer>
         <NuxtLink to="/" class="site-logo rainbow-text">Tokyo<span class="heading-font">Toolbox</span></NuxtLink>
       </div>
 
@@ -148,8 +143,6 @@ const navIcons = [
       </nav>
     </div>
   </header>
-
-  <SideNav :open="sideNavOpen" @close="closeSideNav" />
 </template>
 
 <style scoped>

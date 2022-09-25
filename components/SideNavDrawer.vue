@@ -1,9 +1,13 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
-//const config = useRuntimeConfig();
-
-const props = defineProps(['open']);
+const openNavDrawer = ref(false);
+function openDrawer() {
+  openNavDrawer.value = true;
+}
+function closeDrawer() {
+  openNavDrawer.value = false;
+}
 
 const navLinks = ref([
   { link: '/about', label: 'About' },
@@ -45,81 +49,81 @@ const socialIcons = [
 </script>
 
 <template>
-  <div v-if="open" class="side-nav--drawer">
-    <div ref="overlay" class="side-nav--overlay" />
-    <div class="side-nav text-center">
-      <button @click="$emit('close')" class="absolute top-4 right-4">
-        <Icon icon="bi:x-lg" />
-      </button>
+  <client-only>
+    <button @click="openDrawer" title="Menu">
+      <slot></slot>
+      <span class="sr-only">Menu</span>
+    </button>
 
-      <div class="site-logo rainbow-text">Tokyo<span class="heading-font">Toolbox</span></div>
+    <Drawer :isOpen="openNavDrawer" @close="closeDrawer" css="w-80 mr-auto shadow-lg bg-white dark:bg-black">
+      <div class="side-nav text-center">
+        <button @click="closeDrawer" class="absolute top-4 right-4">
+          <Icon icon="bi:x-lg" />
+        </button>
 
-      <nav class="slice-anim my-8 flex-1 w-full">
-        <ul class="menu flex flex-col">
-          <template v-for="(n, i) in navLinks" :key="`main-nav-link-${i}`">
-            <li class="group relative">
-              <div class="slice-line">
-                <NuxtLink :to="n.link" :data-text="n.label" class="slice nav-link" :class="n.dropdown && 'dropdown'">
-                  {{ n.label }}
-                  <span class="dots" v-if="n.dropdown" />
-                </NuxtLink>
-              </div>
-              <div v-if="n.dropdown" class="dropdown-menu slice-anim group-hover:block h-auto hidden">
-                <ul class="menu top-0 w-full bg-gray-300 dark:bg-black shadow-lg py-3 border-y">
-                  <template v-for="(d, i) in n.menu" :key="`dropdown-${n.label}-li-${i}`">
-                    <div class="slice-line">
-                      <li class="hover:text-teal-600">
-                        <NuxtLink :to="d.link" :data-text="d.label" class="slice px-4 py-2 block">
-                          {{ d.label }}
-                        </NuxtLink>
-                      </li>
-                    </div>
-                  </template>
-                </ul>
-              </div>
+        <div class="site-logo rainbow-text">Tokyo<span class="heading-font">Toolbox</span></div>
+
+        <nav class="slice-anim my-8 flex-1 w-full">
+          <ul class="menu flex flex-col">
+            <template v-for="(n, i) in navLinks" :key="`main-nav-link-${i}`">
+              <li class="group relative">
+                <div class="slice-line">
+                  <NuxtLink :to="n.link" :data-text="n.label" class="slice nav-link" :class="n.dropdown && 'dropdown'">
+                    {{ n.label }}
+                    <span class="dots" v-if="n.dropdown" />
+                  </NuxtLink>
+                </div>
+                <div v-if="n.dropdown" class="dropdown-menu slice-anim group-hover:block h-auto hidden">
+                  <ul class="menu top-0 w-full bg-gray-300 dark:bg-black shadow-lg py-3 border-y">
+                    <template v-for="(d, i) in n.menu" :key="`dropdown-${n.label}-li-${i}`">
+                      <div class="slice-line">
+                        <li class="hover:text-teal-600">
+                          <NuxtLink :to="d.link" :data-text="d.label" class="slice px-4 py-2 block">
+                            {{ d.label }}
+                          </NuxtLink>
+                        </li>
+                      </div>
+                    </template>
+                  </ul>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </nav>
+
+        <div class="uppercase flex flex-col divide-y space-y-3 divide-primary py-6">
+          <h2 class="text-3xl">Connect&nbsp;<span class="text-primary text-lg">with</span>&nbsp;Us</h2>
+          <ul class="flex justify-center gap-4 text-xl pt-3">
+            <li v-for="(s, i) in socialIcons" :key="`sidenav-social-icon-${i}`" :title="s.label">
+              <a :href="s.link" target="_blank" class="link"><Icon :icon="s.icon" /></a>
             </li>
-          </template>
-        </ul>
-      </nav>
+          </ul>
+        </div>
 
-      <div class="uppercase flex flex-col divide-y space-y-3 divide-primary py-6">
-        <h2 class="text-3xl">Connect&nbsp;<span class="text-primary text-lg">with</span>&nbsp;Us</h2>
-        <ul class="flex justify-center gap-4 text-xl pt-3">
-          <li v-for="(s, i) in socialIcons" :key="`sidenav-social-icon-${i}`" :title="s.label">
-            <a :href="s.link" target="_blank" class="link"><Icon :icon="s.icon" /></a>
-          </li>
-        </ul>
-      </div>
+        <div class="flex flex-col pb-4">
+          <p class="text-xs md:text-sm">
+            &copy; {{ new Date().getFullYear() }}
+            <span class="text-primary">Tokyo<span class="heading-font">Toolbox</span></span>
+            All Rights Reserved.
+          </p>
+          <div class="divide-x divide text-xs md:text-sm">
+            <NuxtLink to="/legal/privacy" class="link h5 pr-2">Privacy Policy</NuxtLink>
+            <NuxtLink to="/legal/terms" class="link h5 pl-2">Terms of Use</NuxtLink>
+          </div>
+        </div>
 
-      <div class="flex flex-col pb-4">
-        <p class="text-xs md:text-sm">
-          &copy; {{ new Date().getFullYear() }}
-          <span class="text-primary">Tokyo<span class="heading-font">Toolbox</span></span>
-          All Rights Reserved.
-        </p>
-        <div class="divide-x divide text-xs md:text-sm">
-          <NuxtLink to="/legal/privacy" class="link h5 pr-2">Privacy Policy</NuxtLink>
-          <NuxtLink to="/legal/terms" class="link h5 pl-2">Terms of Use</NuxtLink>
+        <div class="flex items-center justify-center gap-1 text-xs">
+          Made with <Icon icon="bi:heart-fill" /> by
+          <a href="https://shecodez.com" target="_blank" class="link">shecodez</a> | NJN
         </div>
       </div>
-
-      <div class="flex items-center justify-center gap-1 text-xs">
-        Made with <Icon icon="bi:heart-fill" /> by
-        <a href="https://shecodez.com" target="_blank" class="link">shecodez</a> | NJN
-      </div>
-    </div>
-  </div>
+    </Drawer>
+  </client-only>
 </template>
 
 <style scoped>
-.side-nav--drawer {
-  @apply fixed z-50 w-full h-full top-0 left-0 flex;
-}
-.side-nav--overlay {
-  @apply fixed w-full h-full bg-gray-900 bg-opacity-80 overflow-y-auto;
-}
 .side-nav {
-  @apply relative w-80 py-4 flex flex-col items-center h-full bg-black;
+  @apply relative py-4 flex flex-col items-center h-full;
 }
 
 .site-logo {

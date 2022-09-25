@@ -1,42 +1,33 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
-// const colorMode = useColorMode();
-// function toggleDark() {
-//   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
-// }
-
-// const colorModeMap = ["system", "light", "dark", "sepia" ];
+const colorMode = useColorMode();
+// const colorModeMap = ['system', 'light', 'dark', 'sepia'];
 // function toggleColorMode() {
-//   const colorModeIdx = colorModeMap.findIndex(colorMode.value);
-//   const nextIdx = colorModeIdx >= (colorModeMap.length -1 ) ? 0 : colorModeIdx++;
+//   let colorModeIdx = colorModeMap.findIndex((c) => c === colorMode.value);
+//   let nextIdx = colorModeIdx > colorModeMap.length ? 0 : colorModeIdx++;
 //   colorMode.preference = colorModeMap[nextIdx];
 // }
+
+function toggleDark() {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
+}
 </script>
 
 <template>
-  <!-- <select v-model="$colorMode.preference">
-    <option value="system">
-      <Icon icon="iconoir:computer" width="16" />
-      <span class="sr-only">System</span>
-    </option>
-    <option value="light">
-      <Icon icon="iconoir:sun-light" width="16" />
-      <span class="sr-only">Light</span>
-    </option>
-    <option value="dark">
-      <Icon icon="iconoir:half-moon" width="16" />
-      <span class="sr-only">Dark</span>
-    </option>
-    <option value="sepia">
-      <Icon icon="iconoir:coffee-cup" width="16" />
-      <span class="sr-only">Sepia</span>
-    </option>
-  </select> -->
-  <button class="outline-none">
-    <div class="dark:i-carbon-moon i-carbon-sun" />
-    <Icon icon="iconoir:question-mark-circle" />
-  </button>
+  <client-only>
+    <!-- <button @click="toggleColorMode" :title="$colorMode.preference">
+      <Icon v-if="$colorMode.preference === 'system'" icon="iconoir:computer" width="16" />
+      <Icon v-if="$colorMode.preference === 'light'" icon="iconoir:sun-light" width="16" />
+      <Icon v-if="$colorMode.preference === 'dark'" icon="iconoir:half-moon" width="16" />
+      <Icon v-if="$colorMode.preference === 'sepia'" icon="iconoir:coffee-cup" width="16" />
+      <span class="sr-only">{{ $colorMode.preference }}</span>
+    </button> -->
+    <button @click="toggleDark" :title="`Theme: ${$colorMode.value}`">
+      <Icon v-if="$colorMode.value === 'dark'" icon="bi:sun-fill" />
+      <Icon v-else-if="$colorMode.value === 'light'" icon="bi:moon-stars-fill" />
+    </button>
+  </client-only>
 </template>
 
 <style>
